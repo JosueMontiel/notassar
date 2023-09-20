@@ -14,14 +14,15 @@
 	$queU=("SELECT Correo FROM UsuariosS  WHERE Correo='$user' and Pass='$pass'");
 	$result=mysqli_query($conexion,$queU);
 	if (mysqli_num_rows($result)>0) {
-	//	echo "<script>alert('Num Cols: $x');</script>";
+	 //echo "<script>alert('Num Cols: $x');</script>";
 		session_start();
 		$_SESSION['$user']=$user;
+		//$_SESSION['$userName']=$result['personaCont'];
 		header('Location:notas.php');		
 		/*echo "Valor 1 de S_SESSION: ".$_SESSION['$user'];*/
 		
 	}
-	$rs = mysqli_query($conexion, "SELECT Id_empresa FROM UsuariosS  WHERE Correo='$user';");
+	$rs = mysqli_query($conexion, "SELECT em.ID_Empresa FROM UsuariosS us, empresac em  WHERE us.Correo='$user' AND us.id_empresa = em.CodigoE;");
 	if ($row = mysqli_fetch_row($rs)) {
 		$id = trim($row[0]);
 		$_SESSION['$CodiEmp'] = $id;
@@ -135,4 +136,4 @@
 if (!isset($_POST['username'])) {
 			die();
 	}
-?>
+?> 
